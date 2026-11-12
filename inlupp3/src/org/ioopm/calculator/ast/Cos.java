@@ -4,4 +4,17 @@ public class Cos extends Unary {
      public Cos(SymbolicExpression value){
         super(value);
     }
+     
+    public String getName(){
+        return "cos";
+    }
+
+    public SymbolicExpression eval() {
+    SymbolicExpression arg = this.arg.eval();
+    if (arg.isConstant()) {
+        return new Constant(Math.cos(arg.getValue()));
+    } else {
+        return new Cos(arg);
+    }
+}
 }

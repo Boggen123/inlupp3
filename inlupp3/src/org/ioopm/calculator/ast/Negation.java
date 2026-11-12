@@ -4,4 +4,17 @@ public class Negation extends Unary {
      public Negation(SymbolicExpression value){
         super(value);
     }
+
+    public String getName(){
+        return "-";
+    }
+
+    public SymbolicExpression eval() {
+        SymbolicExpression arg = this.arg.eval();
+        if (arg.isConstant()) {
+            return new Constant(-arg.getValue());
+        } else {
+            return new Negation(arg);
+        }
+    }
 }
