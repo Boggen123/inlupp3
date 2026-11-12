@@ -1,5 +1,4 @@
 package org.ioopm.calculator.ast;
-import java.util.HashMap;
 
 public abstract class SymbolicExpression {
     public boolean isConstant(){
@@ -17,7 +16,7 @@ public abstract class SymbolicExpression {
         throw new RuntimeException("getValue( called on non-constnt");
     }
 
-        public abstract SymbolicExpression eval() {
+        public SymbolicExpression eval(Environment vars) {
         throw new RuntimeException("eval() not implemented yet");
     }
 }

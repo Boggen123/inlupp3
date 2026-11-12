@@ -9,8 +9,9 @@ public class Cos extends Unary {
         return "cos";
     }
 
-    public SymbolicExpression eval() {
-    SymbolicExpression arg = this.arg.eval();
+    public SymbolicExpression eval(Environment vars) {
+    SymbolicExpression a = this.getArg();
+    SymbolicExpression arg = a.eval(vars);
     if (arg.isConstant()) {
         return new Constant(Math.cos(arg.getValue()));
     } else {

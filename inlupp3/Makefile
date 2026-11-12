@@ -8,5 +8,8 @@ test:
 	javac -d classes -sourcepath src src/Test.java
 	java -cp classes -enableassertions Test
 
+testparse:
+	javac -d classes -sourcepath src src/TestParser.java
+	java -cp classes -enableassertions TestParser
 clean:
 	rm -rf classes

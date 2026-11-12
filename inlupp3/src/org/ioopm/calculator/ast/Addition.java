@@ -12,4 +12,16 @@ public class Addition extends Binary {
     public int getPriority(){
         return 50;
     }
+
+    public SymbolicExpression eval(Environment vars) {
+        SymbolicExpression left = this.getLhs();
+        SymbolicExpression leftEval = left.eval(vars);
+        SymbolicExpression right = this.getRhs();
+        SymbolicExpression rightEval = right.eval(vars);
+        if (leftEval.isConstant() && rightEval.isConstant()) {
+            return new Constant(leftEval.getValue() + rightEval.getValue());
+        } else {
+            return new Addition(leftEval, rightEval);
+        }
+    }
 }

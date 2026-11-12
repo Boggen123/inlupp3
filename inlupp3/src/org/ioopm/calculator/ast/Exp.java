@@ -9,12 +9,15 @@ public class Exp extends Unary {
         return "exp";
     }
 
-    public SymbolicExpression eval() {
-    SymbolicExpression arg = this.arg.eval();
+    public SymbolicExpression eval(Environment vars) {
+    SymbolicExpression a = this.getArg();
+    SymbolicExpression arg = a.eval(vars);
     if (arg.isConstant()) {
         return new Constant(Math.exp(arg.getValue()));
     } else {
         return new Exp(arg);
     }
 }
+
+
 }
