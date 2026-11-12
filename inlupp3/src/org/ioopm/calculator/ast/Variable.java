@@ -1,9 +1,9 @@
 package org.ioopm.calculator.ast;
 
 public class Variable extends Atom {
-    private String id;
+    private String identifier;
 
-    public Variable(String id){
-        this.id = id;
+    public Variable(String identifier){
+        this.identifier = identifier;
     }
 }

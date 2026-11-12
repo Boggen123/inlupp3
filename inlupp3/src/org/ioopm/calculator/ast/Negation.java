@@ -1,5 +1,7 @@
 package org.ioopm.calculator.ast;
 
 public class Negation extends Unary {
-//TODO
+     public Negation(SymbolicExpression value){
+        super(value);
+    }
 }

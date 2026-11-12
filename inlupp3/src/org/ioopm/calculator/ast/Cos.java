@@ -1,5 +1,7 @@
 package org.ioopm.calculator.ast;
 
 public class Cos extends Unary {
-//TODO
+     public Cos(SymbolicExpression value){
+        super(value);
+    }
 }
