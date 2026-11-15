@@ -9,6 +9,7 @@ public class Test {
         constructionTests();
         printingTests();
         equalityTests();
+        commandTests();
         // evaluationTests();   // avkommentera i B7 (kräver eval(), equals(), Environment)
 
         System.out.println();
@@ -147,6 +148,36 @@ public class Test {
             new Multiplication(new Addition(a, b), new Constant(2)));   // nästlat
     }
 
+
+    private static void check(String name, boolean condition) {
+            if (condition) {
+                passed++;
+                System.out.println("PASS: " + name);
+            } else {
+                failed++;
+                System.out.println("FAIL: " + name);
+            }
+        }
+
+    private static void commandTests() {
+
+    	check("Quit is signleton", Quit.instance() == Quit.instance());
+     	check("Vars is singleton",  Vars.instance()  == Vars.instance());
+        check("Clear is singleton", Clear.instance() == Clear.instance());
+
+        check("Quit isCommand",  Quit.instance().isCommand());
+        check("Vars isCommand",  Vars.instance().isCommand());
+        check("Clear isCommand", Clear.instance().isCommand());
+        check("Constant is not a command", !new Constant(5).isCommand());
+        check("Addition is not a command", !new Addition(new Constant(1), new Constant(2)).isCommand());
+
+
+        Environment env = new Environment();
+        env.put(new Variable("x"), new Constant(3));
+        check("env has a variable before clear", !env.isEmpty());
+        Clear.instance().eval(env);
+        check("env is empty after clear", env.isEmpty());
+    }
     // // ------------------------------------------------------------------
     // // B6/B7: evaluering. Avkommentera hela blocket när eval() finns.
     // // Skapa en NY Environment per test så att inget läcker mellan dem.
