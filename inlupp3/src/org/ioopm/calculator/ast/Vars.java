@@ -10,8 +10,8 @@ public class Vars extends Command {
 		return theInstace;
 	}
 
-	public SymbolicExpression eval(Environment vars) {
-		return this;
+	public SymbolicExpression eval(Environment vars) throws IllegalAssignmentException {
+		throw new IllegalAssignmentException("Cannot eval command");
 	}
 
 	public String toString() {

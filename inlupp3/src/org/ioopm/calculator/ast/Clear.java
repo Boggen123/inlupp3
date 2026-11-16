@@ -10,9 +10,8 @@ public class Clear extends Command {
 		return theInstance;
 	}
 
-	public SymbolicExpression eval(Environment vars) {
-		vars.clear();
-		return this;
+	public SymbolicExpression eval(Environment vars) throws IllegalAssignmentException {
+		throw new IllegalAssignmentException("Cannot eval command");
 	}
 
 	public String toString() {

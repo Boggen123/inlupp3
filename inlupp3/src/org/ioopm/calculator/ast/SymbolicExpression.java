@@ -10,7 +10,7 @@ public abstract class SymbolicExpression {
     }
     
     public String getName(){
-        throw new RuntimeException("getName() called on expression with no operator");
+        throw new IllegalAssignmentException("getName() called on expression with no operator");
     }
 
     public  int getPriority(){
@@ -18,10 +18,10 @@ public abstract class SymbolicExpression {
     }
 
     public  double getValue(){
-        throw new RuntimeException("getValue( called on non-constnt");
+        throw new IllegalAssignmentException("getValue( called on non-constnt");
     }
 
         public SymbolicExpression eval(Environment vars) {
-        throw new RuntimeException("eval() not implemented yet");
+        return this;
     }
 }

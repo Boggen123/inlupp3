@@ -13,4 +13,8 @@ public class Quit extends Command {
 		return "quit";
 	}
 
+	public SymbolicExpression eval(Environment vars) throws IllegalAssignmentException {
+		throw new IllegalAssignmentException("Cannot eval command");
+	}
+
 }

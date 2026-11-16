@@ -17,16 +17,24 @@ public class Assignment extends Binary {
         return 10;
     }
 
-//TODO: Ändra, jättefel inte klar ännu
-    public SymbolicExpression eval(Environment vars) {
+     public SymbolicExpression eval(Environment vars) {
         SymbolicExpression value = this.getLhs().eval(vars);
         SymbolicExpression target = this.getRhs();
 
-        // om högsersidan inte är variabel
-        if (!(target instanceof Variable)) {
-        	throw new RuntimeException("Right hand side is not variable");
+        if (target instanceof Variable) {
+            if (Constants.namedConstants.containsKey(target.toString())) {
+                throw new IllegalAssignmentException(
+                    "Error: cannot redefine named constant '" + target + "'");
+            }
+            vars.put((Variable) target, value);
+            return value;
         }
 
-        return value;
+        if (target.isConstant()) {
+            throw new IllegalAssignmentException(
+                "Error: cannot redefine named constant '" + target + "'");
+        }
+
+        throw new IllegalAssignmentException("Right hand side is not a variable");
     }
 }

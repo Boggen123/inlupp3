@@ -23,7 +23,15 @@ public class Variable extends Atom {
         return this.identifier.equals(other.identifier);
     }
 
-    public SymbolicExpression eval(){
+
+    public int hashCode() {
+        return this.identifier.hashCode();
+    }
+
+    public SymbolicExpression eval(Environment env){
+        if(env.containsKey(this)) {
+            return env.get(this);
+        }
         return this;
     }
 }
