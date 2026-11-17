@@ -10,7 +10,7 @@ public class Quit extends Command {
 	}
 
 	public String toString() {
-		return "quit";
+		return "Quit";
 	}
 
 	public SymbolicExpression eval(Environment vars) throws IllegalAssignmentException {

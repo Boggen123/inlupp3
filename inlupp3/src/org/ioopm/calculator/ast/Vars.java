@@ -15,6 +15,6 @@ public class Vars extends Command {
 	}
 
 	public String toString() {
-		return "vars";
+		return "Vars";
 	}
 }
