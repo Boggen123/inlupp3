@@ -48,14 +48,8 @@ public class Calculator {
 
                 }
                 failed=false;
-            } catch(IOException e) {
-                e.getMessage();
-            } catch(SyntaxErrorException e) {
-                e.getMessage();
-            } catch(IllegalExpressionException e) {
-                e.getMessage();
-            } catch(IllegalAssignmentException e) {
-                e.getMessage();
+            } catch(IOException | SyntaxErrorException | IllegalAssignmentException | IllegalExpressionException e) {
+                System.out.println(e.getMessage());
             }
             if(failed){
                 env.clear();
