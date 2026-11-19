@@ -4,10 +4,15 @@ on:
   pull_request:
 
 jobs: 
+
+  defaults: 
+    run:
+    working-directory: inlupp3
+    
   build-and-test:
     runs-on: ubuntu-latest
 
-    steps:
+    steps:      
       - name: Clean previous build
         run: make clean
 
