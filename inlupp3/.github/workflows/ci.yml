@@ -1,0 +1,21 @@
+name: CI
+
+on: 
+  pull_request:
+
+jobs: 
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clean previous build
+        run: make clean
+
+      - name: Compile prodject
+        run: make all
+
+      - name: Run tests
+        run: make test
+
+      - name: Run parser tests
+        run: make testparse
