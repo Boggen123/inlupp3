@@ -5,7 +5,7 @@ import javax.management.RuntimeErrorException;
 import org.ioopm.calculator.ast.Variable;
 
 public class Assignment extends Binary {
-        public Assignment(SymbolicExpression l, SymbolicExpression r){
+    public Assignment(SymbolicExpression l, SymbolicExpression r){
         super(l, r);
     }
 

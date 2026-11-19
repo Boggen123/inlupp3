@@ -11,7 +11,7 @@ public class Variable extends Atom {
         return this.identifier;
     }
 
-    public boolean equals(Object other) {
+    public boolean equals(Object other){
         if (other instanceof Variable) {
             return this.equals((Variable) other);
         } else {
@@ -19,12 +19,12 @@ public class Variable extends Atom {
         }
     }
 
-    public boolean equals(Variable other) {
+    public boolean equals(Variable other){
         return this.identifier.equals(other.identifier);
     }
 
 
-    public int hashCode() {
+    public int hashCode(){
         return this.identifier.hashCode();
     }
 
