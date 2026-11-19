@@ -15,5 +15,6 @@ System.out.println(new Cos(new Constant(0)).eval(env));   // förväntat: 1.0
 System.out.println(new Exp(new Constant(0)).eval(env));   // förväntat: 1.0
 System.out.println(new Log(new Constant(1)).eval(env));   // förväntat: 0.0
 System.out.println(new Sin(new Variable("x")).eval(env)); // förväntat: sin x
+System.out.println(new Sin(new Variable("y")).eval(env)); // förväntat: sin x
     }
 }
