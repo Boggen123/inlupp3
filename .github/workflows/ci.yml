@@ -1,22 +1,22 @@
 name: CI
 
-on: 
+on:
   pull_request:
 
-jobs: 
-
-  defaults: 
-    run:
-      working-directory: inlupp3
-    
+jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: inlupp3
 
-    steps:      
+    steps:
+      - uses: actions/checkout@v4
+
       - name: Clean previous build
         run: make clean
 
-      - name: Compile prodject
+      - name: Compile project
         run: make all
 
       - name: Run tests
