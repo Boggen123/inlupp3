@@ -1,0 +1,89 @@
+# Läggs i repot som:  .github/workflows/ci.yml
+#
+# Ett enda jobb på Linux, som körs för varje Pull Request (inte för varje push).
+# Ett jobb = en avrundning uppåt till hela minuter, så vi samlar allt i ett.
+
+name: CI
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'            # ändrad dokumentation behöver inte köra testerna
+
+# Ny push till samma PR avbryter den gamla körningen: sparar minuter
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest      # bara Linux, Windows och Mac kostar extra
+    timeout-minutes: 10         # skyddar mot hängande körningar som äter minuter
+
+    steps:
+      - name: Hämta koden
+        uses: actions/checkout@v4
+
+      - name: Installera Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'    # ändra till samma version som du kör lokalt (java -version)
+
+      - name: Bygg
+        run: |
+          mkdir -p reports
+          make
+
+      - name: Lint (javac -Xlint:all)
+        run: |
+          mkdir -p /tmp/lint-classes
+          javac -Xlint:all -d /tmp/lint-classes -sourcepath src \
+            $(find src -name '*.java') 2>&1 | tee reports/lint.txt
+          # Varningar skrivs bara till rapporten. Lägg till -Werror ovan för att
+          # låta varningar fälla bygget.
+
+      - name: Kör alla tester
+        run: |
+          run_suite() {
+            name=$1; shift
+            echo "::group::$name"
+            "$@" 2>&1 | tee "reports/$name.txt"
+            code=${PIPESTATUS[0]}
+            echo "::endgroup::"
+            return "$code"
+          }
+          status=0
+          run_suite ast-tests        make test              || status=1
+          run_suite parser-tests     make testparser        || status=1
+          run_suite calculator-e2e   bash test_calculator.sh || status=1
+          exit "$status"
+
+      - name: Sammanfatta testrapport
+        if: ${{ !cancelled() }}
+        run: |
+          [ -d reports ] || exit 0
+          # Fällda tester blir röda felmarkeringar på körningens sida
+          grep -h '^FAILED' reports/*.txt | sed 's/^/::error::/' || true
+          {
+            echo "## Testrapport"
+            echo
+            for f in reports/*.txt; do
+              echo "### $(basename "$f" .txt)"
+              echo '```'
+              grep -E '^FAILED|^Passed:|warning:|error:' "$f" || echo "(inga fel eller varningar)"
+              echo '```'
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Spara rapporterna
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: reports/
+          if-no-files-found: ignore
+          retention-days: 14
