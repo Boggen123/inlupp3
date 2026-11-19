@@ -7,7 +7,7 @@ jobs:
 
   defaults: 
     run:
-    working-directory: inlupp3
+      working-directory: inlupp3
     
   build-and-test:
     runs-on: ubuntu-latest
