@@ -10,12 +10,11 @@ public class Negation extends Unary {
     }
 
     public SymbolicExpression eval(Environment vars) {
-    SymbolicExpression a = this.getArg();
-    SymbolicExpression arg = a.eval(vars);
-        if (arg.isConstant()) {
-            return new Constant(-arg.getValue());
-        } else {
-            return new Negation(arg);
-        }
+        SymbolicExpression arg = this.getArg().eval(vars);
+            if (arg.isConstant()) {
+                return new Constant(-arg.getValue());
+            } else {
+                return new Negation(arg);
+            }
     }
 }

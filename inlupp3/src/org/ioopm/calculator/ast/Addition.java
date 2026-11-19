@@ -14,10 +14,8 @@ public class Addition extends Binary {
     }
 
     public SymbolicExpression eval(Environment vars) {
-        SymbolicExpression left = this.getLhs();
-        SymbolicExpression leftEval = left.eval(vars);
-        SymbolicExpression right = this.getRhs();
-        SymbolicExpression rightEval = right.eval(vars);
+        SymbolicExpression leftEval = this.getLhs().eval(vars);
+        SymbolicExpression rightEval = this.getRhs().eval(vars);
         if (leftEval.isConstant() && rightEval.isConstant()) {
             return new Constant(leftEval.getValue() + rightEval.getValue());
         } else {

@@ -5,12 +5,12 @@ public abstract class SymbolicExpression {
         return false;
     }
     
-    public boolean isCommand() {
+    public boolean isCommand(){
     	return false;
     }
     
     public String getName(){
-        throw new IllegalAssignmentException("getName() called on expression with no operator");
+        throw new SyntaxErrorException("getName() called on expression with no operator");
     }
 
     public  int getPriority(){
@@ -18,10 +18,12 @@ public abstract class SymbolicExpression {
     }
 
     public  double getValue(){
-        throw new IllegalAssignmentException("getValue( called on non-constnt");
+        throw new IllegalAssignmentException("getValue( called on non-constant");
     }
 
         public SymbolicExpression eval(Environment vars) {
         return this;
     }
+
+    public abstract String toString();
 }

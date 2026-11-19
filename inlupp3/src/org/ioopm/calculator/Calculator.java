@@ -15,7 +15,7 @@ public class Calculator {
         boolean run = true;
         SymbolicExpression ans;
 
-        
+        System.out.println("Välkommen till kalkylatorn!");
         while(run) {
             String input = System.console().readLine();
             expressions ++;

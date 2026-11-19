@@ -13,4 +13,8 @@ public class Constants extends SymbolicExpression{
 
     }
 
+    	public String toString() {
+		return "";
+	}
+
 }

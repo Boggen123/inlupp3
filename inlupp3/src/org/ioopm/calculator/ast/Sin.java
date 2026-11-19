@@ -10,13 +10,12 @@ public class Sin extends Unary {
     }
 
     public SymbolicExpression eval(Environment vars) {
-    SymbolicExpression a = this.getArg();
-    SymbolicExpression arg = a.eval(vars);
-    if (arg.isConstant()) {
-        return new Constant(Math.sin(arg.getValue()));
-    } else {
-        return new Sin(arg);
-    }
+        SymbolicExpression arg = this.getArg().eval(vars);
+        if (arg.isConstant()) {
+            return new Constant(Math.sin(arg.getValue()));
+        } else {
+            return new Sin(arg);
+        }
 }
 
 }
